@@ -1,21 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Home from "./components/Home";
 
+function App() {
+  const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/products")
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
-
-
-function App() {  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<div>About Page</div>} />
-        <Route path="/contact" element={<div>Contact Page</div>} />
-        <Route path="/help" element={<div>Help Page</div>} />
-      </Routes>
-    </Router>
-  );
+  return <Home products={products} />;
 }
 
 export default App;
