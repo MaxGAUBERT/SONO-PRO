@@ -22,9 +22,11 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
-  return <Routes>
+  return (
+  <Routes>
     <Route path="/" element={<Home products={products} cart={cart} setCart={setCart} />} />
-  </Routes>;
+  </Routes>
+  );
 }
 
 export default App;
