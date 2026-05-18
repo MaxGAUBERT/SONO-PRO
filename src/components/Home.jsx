@@ -8,7 +8,6 @@ function Home({ products, cart, setCart }) {
   const [filteredProducts, setFilteredProducts] = useState(products);
 
   useEffect(() => {
-    // Filtrer les produits en fonction du terme de recherche
     const filteredproducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredProducts(filteredproducts);
   }, [searchTerm, products]);
