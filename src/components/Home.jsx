@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import SearchBar from "./SearchBar";
 
 function Home({ products, cart, setCart }) {
   const [showCart, setShowCart] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  useEffect(() => {
+    // Filtrer les produits en fonction du terme de recherche
+    const filteredproducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredProducts(filteredproducts);
+  }, [searchTerm, products]);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="overflow-hidden overflow-y-auto h-[calc(100vh-32px)] bg-gray-100">
       {/* Header */}
+
       <header className="bg-gray-800 text-white px-6 py-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-wide">SONO PRO</h1>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
         {/* Icône panier */}
         <div className="relative cursor-pointer" onClick={() => setShowCart(!showCart)}>
@@ -23,14 +32,9 @@ function Home({ products, cart, setCart }) {
         </div>
       </header>
 
-        {/* Barre de recherche */}
-        <div className='fixed top-0 left-0 w-full z-40'>
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        </div>
-
       {/* Panneau panier */}
       {showCart && (
-        <div className="absolute top-16 right-4 bg-white border shadow-lg rounded-lg p-4 w-72 z-50">
+        <div className="absolute top-16 right-4 bg-gray-600 border shadow-lg rounded-lg p-4 w-72 z-50">
           <h2 className="text-lg font-bold mb-4">🛒 Mon panier</h2>
           {cart.length === 0 ? (
             <p className="text-gray-500">Votre panier est vide.</p>
@@ -59,9 +63,9 @@ function Home({ products, cart, setCart }) {
       )}
 
       {/* Liste des produits */}
-      <main className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <div key={product.id} className="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+      <main className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {filteredProducts.map((product) => (
+          <div key={product.id} className="bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center">
             <img
               src={product.image_url}
               alt={product.name}
@@ -69,6 +73,7 @@ function Home({ products, cart, setCart }) {
             />
             <h2 className="text-lg font-semibold">{product.name}</h2>
             <p className="text-gray-500 text-sm text-center mb-4">{product.description}</p>
+            <p className="text-green-400 font-bold mb-4">{product.price} €</p>
             <button
               className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition"
               onClick={() => setCart((prev) => [...prev, product])}
