@@ -1,23 +1,44 @@
 import { useState, useEffect } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import SearchBar from "./SearchBar";
+import Category from "./Category";
 
-function Home({ products, cart, setCart }) {
+function Home({ products, cart, setCart, categories }) {
   const [showCart, setShowCart] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    const filteredproducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    setFilteredProducts(filteredproducts);
-  }, [searchTerm, products]);
+  let filteredProducts = products;
 
+  if (selectedCategory !== "all") {
+    filteredProducts = filteredProducts.filter(
+      (product) => product.category_id === selectedCategory.id
+    );
+  }
+
+  if (searchTerm) {
+    filteredProducts = filteredProducts.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  setFilteredProducts(filteredProducts);
+}, [searchTerm, products, selectedCategory]);
+
+  console.log("categories dans Home:", categories);
+  
   return (
     <div className="overflow-hidden overflow-y-auto h-[calc(100vh-32px)] bg-gray-100">
       {/* Header */}
 
       <header className="bg-gray-800 text-white px-6 py-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-wide">SONO PRO</h1>
+        <h1 className="text-2xl font-bold tracking-wide">WORLD SHOP</h1>
+        <Category
+          categories={categories}
+          onSelect={(cat) => setSelectedCategory(cat)}
+        />
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
         {/* Icône panier */}
@@ -34,9 +55,9 @@ function Home({ products, cart, setCart }) {
       {/* Panneau panier */}
       {showCart && (
         <div className="absolute top-16 right-4 bg-gray-600 border shadow-lg rounded-lg p-4 w-72 z-50">
-          <h2 className="text-lg font-bold mb-4">🛒 Mon panier</h2>
+          <h2 className="text-lg font-bold mb-4">🛒 My Cart</h2>
           {cart.length === 0 ? (
-            <p className="text-gray-500">Votre panier est vide.</p>
+            <p className="text-gray-500">Your cart is empty.</p>
           ) : (
             <>
               {cart.map((item, index) => (
@@ -46,7 +67,7 @@ function Home({ products, cart, setCart }) {
                     className="text-red-500 text-xs hover:underline"
                     onClick={() => setCart((prev) => prev.filter((_, i) => i !== index))}
                   >
-                    Retirer
+                    Remove
                   </button>
                 </div>
               ))}
@@ -54,7 +75,7 @@ function Home({ products, cart, setCart }) {
                 className="mt-4 w-full bg-red-500 text-white py-1 rounded hover:bg-red-600"
                 onClick={() => setCart([])}
               >
-                Vider le panier
+                Clear Cart
               </button>
             </>
           )}
@@ -77,7 +98,7 @@ function Home({ products, cart, setCart }) {
               className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition"
               onClick={() => setCart((prev) => [...prev, product])}
             >
-              Ajouter au panier
+              Add to Cart
             </button>
           </div>
         ))}

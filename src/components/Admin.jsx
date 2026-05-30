@@ -46,19 +46,19 @@ function Admin() {
 
   return (
     <div className="bg-gray-900 flex flex-col items-center justify-center min-h-screen text-white">
-      <h1>Admin - Ajouter un produit</h1>
+      <h1>Admin - Add Product</h1>
 
       <form onSubmit={handleSubmit}>
         <input
           name="name"
-          placeholder="Nom du produit"
+          placeholder="Product Name"
           value={form.name}
           onChange={handleChange}
         />
 
         <input
             name="id"
-            placeholder="ID du produit (pour suppression)"
+            placeholder="Product ID (for deletion)"
             value={form.id}
             onChange={handleChange}
         />
@@ -73,7 +73,7 @@ function Admin() {
         <input
           name="price"
           type="number"
-          placeholder="Prix"
+          placeholder="Price"
           value={form.price}
           onChange={handleChange}
         />
@@ -93,8 +93,8 @@ function Admin() {
           onChange={handleChange}
         />
 
-        <button type="submit">Ajouter le produit</button>
-        <button type="button" onClick={() => handleDelete(form.id)}>Supprimer le produit</button>
+        <button type="submit">Add Product</button>
+        <button type="button" onClick={() => handleDelete(form.id)}>Delete Product</button>
       </form>
     </div>
   );

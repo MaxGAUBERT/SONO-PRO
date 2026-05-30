@@ -1,18 +1,16 @@
 
-
-
-
+    
 export default function SearchBar({ searchTerm, setSearchTerm }) {
 
     return (
-        <div className='fixed top-0 left-0'>
-            <div className='flex space-x-4 mt-16 p-4'>
+        <div className='sticky top-0 left-0'>
+            <div className='flex space-x-4 mt-1'>
                 <input
                     type='text'
-                    placeholder='Rechercher un produit...'
+                    placeholder='Search for a product...'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className='border p-2 rounded w-full text-black'
+                    className='border p-2 rounded w-full text-white'
                 />
             </div>
         </div>
