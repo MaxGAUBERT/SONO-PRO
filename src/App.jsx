@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Home from "./components/Home";
+import Admin from "./components/Admin";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -25,6 +26,7 @@ function App() {
   return (
   <Routes>
     <Route path="/" element={<Home products={products} cart={cart} setCart={setCart} />} />
+    <Route path="/admin" element={<Admin />} />
   </Routes>
   );
 }
