@@ -18,6 +18,16 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
+app.get("/api/categories", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM categories ORDER BY id");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
+
 app.post("/api/products", async (req, res) => {
   try {
     const { name, description, price, image_url, stock } = req.body;
