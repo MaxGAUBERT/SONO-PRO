@@ -30,10 +30,10 @@ function Home({ products, cart, setCart, categories }) {
   console.log("categories dans Home:", categories);
   
   return (
-    <div className="overflow-hidden overflow-y-auto h-[calc(100vh-32px)] bg-gray-500">
+    <div className="overflow-hidden overflow-y-auto h-[calc(100vh-32px)] bg-gray-100">
       {/* Header */}
 
-      <header className="bg-gray-800 text-gray-400 px-6 py-4 flex items-center justify-between">
+      <header className="bg-gray-800 text-white px-6 py-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-wide">WORLD SHOP</h1>
         <Category
           categories={categories}
