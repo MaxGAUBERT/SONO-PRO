@@ -3,64 +3,113 @@ import axios from "axios";
 
 function Admin() {
   const [form, setForm] = useState({
+    id: "",
     name: "",
     description: "",
     price: "",
     image_url: "",
     stock: "",
+    category_id: "",
   });
 
-  function handleChange(e){
-    setForm((prev) => ({...prev, [e.target.name]: e.target.value }));
+  function handleChange(e) {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await axios.post("http://localhost:5000/api/products", {
-      name: form.name,
-      id: form.id,
-      description: form.description,
-      price: Number(form.price),
-      image_url: form.image_url,
-      stock: Number(form.stock),
-    });
+    try {
+      await axios.post("http://localhost:5000/api/products", {
+        name: form.name,
+        description: form.description,
+        price: Number(form.price),
+        image_url: form.image_url,
+        stock: Number(form.stock),
+        category_id: form.category_id
+          ? Number(form.category_id)
+          : null,
+      });
 
-    setForm({
-      name: "",
-      id: "",
-      description: "",
-      price: "",
-      image_url: "",
-      stock: "",
-    });
+      setForm({
+        id: "",
+        name: "",
+        description: "",
+        price: "",
+        image_url: "",
+        stock: "",
+        category_id: "",
+      });
 
-    alert("Produit ajouté");
+      alert("Produit ajouté");
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de l'ajout");
+    }
   }
 
-  function handleDelete(productId) {
-    axios.delete(`http://localhost:5000/api/products/${productId}`)
-      .then(() => alert("Produit supprimé"))
-      .catch((err) => console.error(err));
+  async function handleDelete(productId) {
+    if (!productId) {
+      alert("Indique un ID produit");
+      return;
+    }
+
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/products/${productId}`
+      );
+
+      alert("Produit supprimé");
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de la suppression");
+    }
+  }
+
+  async function handleRemoveFromCategory(productId) {
+    if (!productId) {
+      alert("Indique un ID produit");
+      return;
+    }
+
+    try {
+      await axios.patch(
+        `http://localhost:5000/api/products/${productId}/category`,
+        {
+          category_id: null,
+        }
+      );
+
+      alert("Produit retiré de la catégorie");
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors du retrait de la catégorie");
+    }
   }
 
   return (
     <div className="bg-gray-900 flex flex-col items-center justify-center min-h-screen text-white">
       <h1>Admin - Add Product</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3"
+      >
+        <input
+          name="id"
+          placeholder="Product ID"
+          value={form.id}
+          onChange={handleChange}
+        />
+
         <input
           name="name"
           placeholder="Product Name"
           value={form.name}
           onChange={handleChange}
-        />
-
-        <input
-            name="id"
-            placeholder="Product ID (for deletion)"
-            value={form.id}
-            onChange={handleChange}
         />
 
         <input
@@ -93,8 +142,31 @@ function Admin() {
           onChange={handleChange}
         />
 
-        <button type="submit">Add Product</button>
-        <button type="button" onClick={() => handleDelete(form.id)}>Delete Product</button>
+        <input
+          name="category_id"
+          type="number"
+          placeholder="Category ID"
+          value={form.category_id}
+          onChange={handleChange}
+        />
+
+        <button type="submit">
+          Add Product
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleRemoveFromCategory(form.id)}
+        >
+          Remove From Category
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleDelete(form.id)}
+        >
+          Delete Product
+        </button>
       </form>
     </div>
   );

@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { supabase } from "../supabaseClient"; // adaptez le chemin si besoin
 
 export default function useCategories() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/categories")
-      .then((res) => {
-        console.log("categories API:", res.data);
-        setCategories(res.data);
-      })
-      .catch((err) => console.error(err));
+    async function fetchCategories() {
+      const { data, error } = await supabase
+        .from("categories")
+        .select("*");
+
+      if (error) {
+        console.error("Erreur récupération catégories:", error.message);
+        return;
+      }
+
+      setCategories(data);
+    }
+
+    fetchCategories();
   }, []);
 
   return categories;

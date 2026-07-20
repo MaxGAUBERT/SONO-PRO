@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { supabase } from './supabaseClient'; // adaptez le chemin si besoin
+import { supabase } from '../supabaseClient'; // adaptez le chemin si besoin
+import useCategories from '../hooks/useCategories'; // adaptez le chemin si besoin
 
 export default function AjoutProduit() {
+  const categories = useCategories();
+
   const [nom, setNom] = useState('');
   const [prix, setPrix] = useState('');
+  const [categoryId, setCategoryId] = useState('');
   const [imageFiles, setImageFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -50,10 +54,16 @@ export default function AjoutProduit() {
     setMessage(null);
 
     try {
-      // 1. Créer le produit
+      // 1. Créer le produit (category_id est optionnel : null si rien n'est sélectionné)
       const { data: produit, error: produitError } = await supabase
         .from('produits')
-        .insert([{ nom, prix: parseFloat(prix) }])
+        .insert([
+          {
+            nom,
+            prix: parseFloat(prix),
+            category_id: categoryId ? parseInt(categoryId, 10) : null,
+          },
+        ])
         .select()
         .single();
 
@@ -67,6 +77,7 @@ export default function AjoutProduit() {
       setMessage({ type: 'success', text: `Produit "${nom}" ajouté avec ${imageFiles.length} image(s).` });
       setNom('');
       setPrix('');
+      setCategoryId('');
       setImageFiles([]);
       setPreviews([]);
       e.target.reset();
@@ -101,6 +112,23 @@ export default function AjoutProduit() {
           onChange={(e) => setPrix(e.target.value)}
           required
         />
+      </div>
+
+      <div>
+        <label htmlFor="category">Catégorie</label>
+       <select
+        id="category"
+        value={categoryId}
+        onChange={(e) => setCategoryId(e.target.value)}
+        required
+      >
+        <option value="" disabled>-- Choisir une catégorie --</option>
+        {categories.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.name}
+          </option>
+        ))}
+      </select>
       </div>
 
       <div>

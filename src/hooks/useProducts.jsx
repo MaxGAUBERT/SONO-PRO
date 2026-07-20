@@ -1,15 +1,24 @@
-// src/hooks/useCategories.js
+// src/hooks/useProducts.js
 import { useEffect, useState } from "react";
-import axios from "axios";
-
+import { supabase } from "../supabaseClient";
 export default function useProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/products")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.error(err));
+    async function fetchProducts() {
+      const { data, error } = await supabase
+        .from("produits")
+        .select("*, produit_images(*)"); 
+
+      if (error) {
+        console.error("Erreur récupération produits:", error.message);
+        return;
+      }
+
+      setProducts(data);
+    }
+
+    fetchProducts();
   }, []);
 
   return products;
