@@ -7,7 +7,7 @@
 
 ### Part 2: Debug the project 
 
-## To debug, just run "npm run dev", be carefull to be in the good folder path before run this command.
+## To debug, just run "npm run dev", be carrefull to be in the good folder path before run this command.
 ## Then, follow the link (localhost ...).
 
 
