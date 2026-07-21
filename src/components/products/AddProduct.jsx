@@ -140,7 +140,7 @@ async function handleSubmit(e) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="nom">Nom du produit</label>
+        <label htmlFor="nom">Product Name</label>
         <input
           id="nom"
           type="text"
@@ -151,7 +151,7 @@ async function handleSubmit(e) {
       </div>
 
       <div>
-        <label htmlFor="prix">Prix (€)</label>
+        <label htmlFor="prix">Price (€)</label>
         <input
           id="prix"
           type="number"
@@ -163,7 +163,7 @@ async function handleSubmit(e) {
       </div>
 
       <div>
-        <label htmlFor="category">Catégorie</label>
+        <label htmlFor="category">Category</label>
        <select
   id="category"
   value={categoryId}
@@ -211,7 +211,7 @@ async function handleSubmit(e) {
       )}
 
       <button type="submit" disabled={loading}>
-        {loading ? 'Ajout en cours...' : 'Ajouter le produit'}
+        {loading ? 'Adding...' : 'Add Product'}
       </button>
 
       {message && (

@@ -31,11 +31,11 @@ export default function Admin({ categories = [] }) {
         </p>
       </main>
 
-      <div className="fixed bottom-4 right-4">
+      <div className="fixed bottom-10 border-2 right-4">
         <AddProduct categories={categories} />
       </div>
 
-      <div className="fixed bottom-4 left-4 flex items-center gap-2">
+      <div className="fixed bottom-10 border-2 left-4 flex items-center gap-2">
         <select
           value={selectedCategoryId}
           onChange={(event) =>
