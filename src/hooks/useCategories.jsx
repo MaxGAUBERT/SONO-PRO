@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../supabaseClient"; // adaptez le chemin si besoin
+import { supabase } from "../supabaseClient";
 
 export default function useCategories() {
   const [categories, setCategories] = useState([]);
