@@ -41,6 +41,7 @@ export default function Category({
           transition
           left-0
           z-50
+          hover:cursor-pointer
         "
         aria-expanded={isOpen}
         aria-label="Open category menu"

@@ -120,8 +120,6 @@ async function handleSubmit(e) {
     setImageFiles([]);
     setPreviews([]);
 
-    //formElement.reset();
-
     setMessage({
       type: "success",
       text: `Produit "${nom}" ajouté avec ${imageFiles.length} image(s).`,
