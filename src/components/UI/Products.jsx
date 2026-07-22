@@ -74,6 +74,10 @@ export default function Products({ products, handleAddItem, filteredProducts, se
       {selectedProduct.nom}
     </h2>
 
+    <h2 className="mb-2 text-sm font-bold">
+      {selectedProduct.brand}
+    </h2>
+
     <p className="text-sm text-gray-300">
       {selectedProduct.description || "No description available."}
     </p>

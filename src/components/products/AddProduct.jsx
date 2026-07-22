@@ -9,6 +9,7 @@ export default function AjoutProduit() {
   const [prix, setPrix] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [imageFiles, setImageFiles] = useState([]);
+  const [brand, setBrand] = useState('');
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -98,6 +99,7 @@ async function handleSubmit(e) {
         nom: nom.trim(),
         prix: parsedPrice,
         category_id: Number(categoryId),
+        brand: String(brand)
       })
       .select("id")
       .single();
@@ -119,10 +121,11 @@ async function handleSubmit(e) {
     setCategoryId("");
     setImageFiles([]);
     setPreviews([]);
+    setBrand("");
 
     setMessage({
       type: "success",
-      text: `Produit "${nom}" ajouté avec ${imageFiles.length} image(s).`,
+      text: `Product "${nom}"  added with ${imageFiles.length} image(s).`,
     });
   } catch (error) {
     console.error(error);
@@ -156,6 +159,17 @@ async function handleSubmit(e) {
           step="0.01"
           value={prix}
           onChange={(e) => setPrix(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="brand">Brand</label>
+        <input
+          id="brand"
+          type="text"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
           required
         />
       </div>
