@@ -2,12 +2,12 @@ import useCategories from "../../hooks/useCategories";
 import { GrTextAlignLeft } from "react-icons/gr";
 import { useState } from "react";
 
-export default function Products({ products, handleAddItem, filteredProducts, selectedCategory, showDescribes, setShowDescribes }) {
+export default function Products({ products, handleAddItem, filteredProducts, selectedCategory }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
  
     return (
-        <div className="h-[100vh]  bg-gray-500 text-white">
-    <main className="p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="h-[100vh] mt-2 bg-gray-500 text-white">
+    <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
         {filteredProducts.map((product) => {
         const mainImage = [...(product.produit_images ?? [])]
           .sort((a, b) => a.ordre - b.ordre)[0];
@@ -40,19 +40,13 @@ export default function Products({ products, handleAddItem, filteredProducts, se
               {Number(product.prix).toFixed(2)} €
             </p>
 
-            <button 
-                onClick={() => setSelectedProduct(product)}
+            <button
+              type="button"
+              onClick={() => setSelectedProduct(product)}
+              className="mb-3 rounded bg-gray-700 p-2 hover:bg-gray-600"
             >
-                <GrTextAlignLeft size={20} />
+              <GrTextAlignLeft size={20} />
             </button>
-
-            {showDescribes && (
-            <div className="z-1000 inset-0 top-1/2 left-1/2 justify-center">
-                <p className="text-gray-300 overflow-auto border-2 max-h-10">
-                    {product.description ?? "No description available."}
-                </p>
-            </div>
-            )}
         
 
             <button
@@ -68,30 +62,31 @@ export default function Products({ products, handleAddItem, filteredProducts, se
       </main>
 
         {selectedProduct && (
+          <div
+  className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+  onClick={() => setSelectedProduct(null)}
+>
   <div
-    className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-    onClick={() => setSelectedProduct(null)}
+    className="max-h-80 w-full max-w-sm overflow-y-auto rounded-lg bg-gray-800 p-4 shadow-xl"
+    onClick={(event) => event.stopPropagation()}
   >
-    <div
-      className="bg-gray-800 rounded-xl p-6 max-w-xl w-[90%]"
-      onClick={(e) => e.stopPropagation()}
+    <h2 className="mb-2 text-lg font-bold">
+      {selectedProduct.nom}
+    </h2>
+
+    <p className="text-sm text-gray-300">
+      {selectedProduct.description || "No description available."}
+    </p>
+
+    <button
+      type="button"
+      className="mt-4 rounded bg-blue-500 px-3 py-1.5 text-sm"
+      onClick={() => setSelectedProduct(null)}
     >
-      <h2 className="text-2xl font-bold mb-4">
-        {selectedProduct.nom}
-      </h2>
-
-      <p className="text-gray-300 whitespace-pre-line">
-        {selectedProduct.description || "No description available."}
-      </p>
-
-      <button
-        onClick={() => setSelectedProduct(null)}
-        className="mt-6 bg-blue-500 px-4 py-2 rounded"
-      >
-        Close
-      </button>
-    </div>
+      Close
+    </button>
   </div>
+          </div>
         )}
       </div>
     )

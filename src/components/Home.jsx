@@ -12,7 +12,6 @@ const Home = ({ products = [], categories = [] }) => {
   const [filteredSearchTerm, setFilteredSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("All");
-  const [showDescribes, setShowDescribes] = useState(false);
   const { handleAddItem } = useCart();
 
   useEffect(() => {
@@ -74,8 +73,6 @@ const Home = ({ products = [], categories = [] }) => {
           return String(id) === String(selectedCategoryId); 
         }
       )?.name ?? "Unknown"}
-      showDescribes={showDescribes}
-      setShowDescribes={setShowDescribes}
       />
     </div>
   );
