@@ -35,16 +35,10 @@ const Home = ({ products = [], categories = [] }) => {
     setFilteredProducts(result);
   }, [searchTerm, products, selectedCategoryId]);
 
-
-
-  console.log("Produits reçus :", products);
-  console.log("Catégories reçues :", categories);
-  console.log("Catégorie sélectionnée :", selectedCategoryId);
-
   return (
       <div className="overflow-hidden overflow-y-auto h-[100vh] bg-gray-500 text-white">
       <header className="bg-gray-800 text-white px-6 py-4 flex w-screen items-center justify-between">
-        <title className="text-xl font-bold tracking-wide">
+        <title className="text-xl font-bold fixed left-200 tracking-wide">
           WORLD SHOP
         </title>
 
@@ -54,7 +48,7 @@ const Home = ({ products = [], categories = [] }) => {
           onSelect={setSelectedCategoryId}
         />
 
-        <div className="fixed right-120 hover:text-blue-500">
+        <div className="ml-200 sticky hover:text-blue-500">
           <Cart />
         </div>
 

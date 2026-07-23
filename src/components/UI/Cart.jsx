@@ -19,7 +19,7 @@ export default function Cart() {
           )}
             </div>
             {showCart && (
-                <div className=" bg-gray-600 fixed right-0 border shadow-lg rounded-lg w-64 h-1/2 overflow-auto z-25 p-4 mt-5">
+                <div className=" bg-gray-600 fixed right-30 border shadow-lg rounded-lg w-64 h-1/2 overflow-auto z-25 p-4 mt-5">
                 <h2 className="text-lg font-bold">My Cart</h2>
 
                 {cart.length === 0 ? (
