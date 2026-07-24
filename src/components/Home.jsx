@@ -37,10 +37,8 @@ const Home = ({ products = [], categories = [] }) => {
 
   return (
       <div className="overflow-hidden overflow-y-auto h-[100vh] bg-gray-500 text-white">
-      <header className="bg-gray-800 text-white px-6 py-4 flex w-screen items-center justify-between">
-        <title className="text-xl font-bold fixed left-200 tracking-wide">
-          WORLD SHOP
-        </title>
+      <header className="bg-gray-800 text-white py-2 flex w-screen items-center justify-between">
+        <h2> WORLD SHOP </h2>
 
         <Category
           categories={categories}

@@ -29,12 +29,12 @@ export default function Category({
       "Categories";
 
   return (
-    <div className="relative">
+    <div className="relative left-0">
       <button
         type="button"
         onClick={() => setIsOpen((previous) => !previous)}
         className="
-          flex items-center gap-3
+          flex items-center gap-1
           bg-gray-700 hover:bg-gray-600
           px-4 py-2
           rounded-lg
