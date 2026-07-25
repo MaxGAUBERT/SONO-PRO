@@ -56,13 +56,11 @@ export default function Category({
           className="
             absolute
             top-full left-0
-            mt-2
             min-w-56
             bg-gray-800
             border border-gray-700
             rounded-lg
             shadow-xl
-            overflow-hidden
             z-50
           "
         >

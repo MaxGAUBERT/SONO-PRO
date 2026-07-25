@@ -6,20 +6,20 @@ export default function Cart() {
     const { cart, setCart, showCart, setShowCart } = useCart();
 
     return (  
-    <div className="z-50">
+    <div className="absolute top-2 right-0">
         <div
           className="cursor-pointer relative justify-content hover:text-blue-500"
           onClick={() => setShowCart((previous) => !previous)}
         >
-          <FaCartShopping size={24} />
+          <FaCartShopping size={30} color="white"/>
           {cart.length > 0 && (
-            <span className="absolute -top-0 -right-2 w-5 h-5 bg-red-500 text-white text-xl rounded-full flex items-center justify-end">
+            <span className="absolute -top-0 -right-2 w-5 h-1 bg-red-500 text-white text-xl rounded-full flex items-center justify-end">
               {cart.length}
             </span> 
           )}
             </div>
             {showCart && (
-                <div className=" bg-gray-600 fixed right-30 border shadow-lg rounded-lg w-64 h-1/2 overflow-auto z-25 p-4 mt-5">
+                <div className=" bg-gray-600 fixed right-0 border shadow-lg rounded-lg w-64 h-100 overflow-auto z-25 p-2 mt-2">
                 <h2 className="text-lg font-bold">My Cart</h2>
 
                 {cart.length === 0 ? (
