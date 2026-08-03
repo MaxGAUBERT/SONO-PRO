@@ -3,7 +3,6 @@
 # Run the project
 
 ## To run the project, just tape: "npm run dev" in the VSCode terminal.
-## To run the server: tape "npm run dev" also but in the path (/backend) of the project.
 ## Then, open the link (localhost of the project) in your browser.
 
 # Tools installation 
